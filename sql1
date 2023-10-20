@@ -1,0 +1,20 @@
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `pesananperbulan` AS select DATE(`pesanan`.`tgl_transaksi`) as `tgl`,DAY(`pesanan`.`tgl_transaksi`) as `tanggal`, MONTH(`pesanan`.`tgl_transaksi`) as `bulan`,YEAR(`pesanan`.`tgl_transaksi`) as `tahun`, sum(`pesanan`.`qty`) as `jlh`,`pesanan`.`qty`,`menu`.`harga`,`pesanan`.`id_menu` FROM `pesanan`,`menu` WHERE` menu`.`id_menu`=`pesanan`.`id_menu`;
+
+--
+-- VIEW  `pesananperbulan`
+-- Data: None
+
+
+select cast(`lazara`.`pesanan`.`tgl_transaksi` as date) AS `tgl`,`lazara`.`pesanan`.`qty` AS `jlh`,`lazara`.`menu`.`harga` AS `harga`,(`lazara`.`pesanan`.`qty` * `lazara`.`menu`.`harga`) AS `total`,`lazara`.`pesanan`.`id_menu` AS `id_menu` from (`lazara`.`pesanan` join `lazara`.`menu`) where (`lazara`.`menu`.`id_menu` = `lazara`.`pesanan`.`id_menu`) order by `lazara`.`pesanan`.`tgl_transaksi`
+
+
+SELECT layanan_waitress.no_transaksi,layanan_waitress.id_waitress,pesanan.tgl_transaksi from pesanan,layanan_waitress where pesanan.no_transaksi=layanan_waitress.no_transaksi group by layanan_waitress.no_transaksi
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `pesananpertanggal` AS select cast(`pesanan`.`tgl_transaksi` as date) AS `tgl`,`pesanan`.`qty` AS `jlh`,`menu`.`harga` AS `harga`,(`pesanan`.`qty` * `menu`.`harga`) AS `total`,`pesanan`.`id_menu` AS `id_menu` from (`pesanan` join `menu`) where (`menu`.`id_menu` = `pesanan`.`id_menu`) order by `pesanan`.`tgl_transaksi`;
+
+--
+-- VIEW  `pesananpertanggal`
+-- Data: None
+--
+
+select  pesanan.tgl_transaksi, pesanan.id_menu, menu.nama_menu, sum(pesanan.qty) as jlh FROM pesanan,menu WHERE pesanan.id_menu=menu.id_menu AND tgl_transaksi BETWEEN '$tgl_awal' AND '$tgl_akhir' GROUP BY pesanan.id_menu ORDER BY pesanan.tgl_transaksi ASC

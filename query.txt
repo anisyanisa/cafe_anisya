@@ -1,0 +1,7 @@
+select a.no_transaksi,a.id_waitress,b.tgl_transaksi,b.no_meja from layanan_waitress a,pesanan b where a.no_transaksi=b.no_transaksi group by b.no_meja
+
+select a.no_transaksi,a.id_waitress,b.tgl_transaksi,b.no_meja from layanan_waitress a,pesanan b where a.no_transaksi=b.no_transaksi
+
+select a.no_transaksi,a.id_waitress,b.tgl_transaksi,b.no_meja from layanan_waitress a,pesanan b where a.no_transaksi=b.no_transaksi group by b.no_transaksi
+
+SELECT no_transaksi,id_waitress,count(id_waitress) as jlh FROM `layanan_waitress`
